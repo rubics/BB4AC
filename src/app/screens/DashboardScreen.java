@@ -79,11 +79,7 @@ public class DashboardScreen extends MainScreen{
 			case 5:
 				ProfileInfoScreenManager profileInfo = new ProfileInfoScreenManager();
 				profileInfo.pushScreen();
-				break;
-			case 6:
-				ChatScreen chatScreen = new ChatScreen();
-				airCrew.pushScreen(new ChatScreen());
-				break;
+				break;			
 			case 7:
 				airCrew.pushScreen(new ToolboxScreen());
 				break;

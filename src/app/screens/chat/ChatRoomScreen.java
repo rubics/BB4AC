@@ -1,7 +1,5 @@
 package app.screens.chat;
 
-import rubyx.custom_fields.ScreenBannar;
-import rubyx.tabbedUI.TabbedButton;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.FieldChangeListener;
@@ -10,9 +8,10 @@ import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.decor.BackgroundFactory;
+import rubyx.custom_fields.ScreenBannar;
+import rubyx.tabbedUI.TabbedButton;
 import app.fields.listings.ListingField;
 import app.models.Images;
-import app.screens.favorites.ProfileViewScreen;
 import app.screens.profile.GalleryScreen;
 
 public class ChatRoomScreen extends MainScreen{
@@ -24,7 +23,8 @@ public class ChatRoomScreen extends MainScreen{
 	
 	public FieldChangeListener listener = new FieldChangeListener() {
 		public void fieldChanged(Field field, int context) {
-			
+			ChatScreen chatScreen = new ChatScreen();
+			UiApplication.getUiApplication().pushScreen(new ChatScreen());
 		}
 	};
 	

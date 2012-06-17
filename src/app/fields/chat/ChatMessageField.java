@@ -70,13 +70,13 @@ public class ChatMessageField extends Manager{
 		if(String.class.isInstance(message)){
 			message_type = "text";
 			field = new CustomTextArea((String)message, field_width, font);
-			height = Y_OFFSET + field.getPreferredHeight() + V_OFFSET + 15;
+			height = Y_OFFSET + field.getPreferredHeight() + V_OFFSET;
 			x_offset_field = 0;
 		}else if (Bitmap.class.isInstance(_message)){			
 			message_type = "image";
 			Bitmap temp = Images.resize((Bitmap)message, field_width, 120);
 			field = new BitmapField(temp);
-			height = Y_OFFSET + 120 + V_OFFSET + 15;
+			height = Y_OFFSET + 120 + V_OFFSET;
 			x_offset_field = (field_width - temp.getWidth())/2;
 		}else{
 			message_type = "undefined";
