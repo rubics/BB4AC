@@ -8,7 +8,7 @@ import net.rim.device.api.ui.container.MainScreen;
 import rubyx.custom_fields.CustomButton;
 import rubyx.tabbedUI.TabbedScreenManager;
 import app.models.Images;
-import app.screens.chat.ChatScreen;
+import app.screens.chat.ChatRoomScreen;
 import app.screens.chat.FilterScreen;
 import app.screens.chat.HistoryScreen;
 import app.screens.chat.NearMeScreen;
@@ -23,7 +23,7 @@ public class ChatScreenManager {
 	
 	public ChatScreenManager(){
 		
-		tabbedScreens[0]= new ChatScreen();
+		tabbedScreens[0]= new ChatRoomScreen();
 		tabbedScreens[1] = new FilterScreen();
 		tabbedScreens[2] = new NearMeScreen();
 		tabbedScreens[3] = new HistoryScreen();

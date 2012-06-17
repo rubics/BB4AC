@@ -1,13 +1,12 @@
 package app.screens.deals;
 
+import net.rim.device.api.lbs.MapField;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Display;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.FieldChangeListener;
-import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
-import net.rim.device.api.ui.component.GaugeField;
-import net.rim.device.api.ui.container.HorizontalFieldManager;
+import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.decor.BackgroundFactory;
@@ -24,12 +23,12 @@ public class SearchResultScreen extends MainScreen{
 	
 	private TabbedButton backButton;
 	private TabbedButton homeButton;
+
+	private int manager_index;
+	private final MainScreen current_screen;
 	
-	public static Bitmap[] profile_pics = {Bitmap.getBitmapResource("images/profile_1.png"),
-			Bitmap.getBitmapResource("images/profile_2.png"),
-			Bitmap.getBitmapResource("images/profile_3.png"),
-			Bitmap.getBitmapResource("images/profile_4.png")
-		};
+	
+	public static Bitmap[] profile_pics = Images.profile_pics;
 	public static String[] names = {"Luxe Dental Clinic","Happy Habitat Petcare","Jacques La Coupe","Dine In Resturant"};
 	public static String[] category = {"Dental Care For Your Lifestyle","Petcare","Beauty Salon","Dining"};
 	String[] description = {"Welcome to the Luxe Dental Clinic, the centre of luxury for cosmetic dentistry and Smile design in the	heart of Dubai.",
@@ -37,11 +36,35 @@ public class SearchResultScreen extends MainScreen{
 								"In 1996, Avenue Kleber in Paris France, witnessed the launching of the ultimate luxurious La Coupe Beauty Salon.",
 								"Jump to casual dining, a casual dining resturant is a resturant that serves moderately priced food in a casual atmosphere."};
 	
-	ProgressBar progressBar;
-	
+	private VerticalFieldManager vrm;
+		
+	private FieldChangeListener tabbedViewListener = new FieldChangeListener() {
+		
+		public void fieldChanged(Field field, int context) {
+			switch (field.getIndex()){
+			case 0:
+				UiApplication.getUiApplication().invokeLater(new Runnable() {					
+					public void run() {
+						current_screen.delete(vrm);
+						drawList();						
+					}
+				});
+				break;
+			case 1:
+			default:
+				UiApplication.getUiApplication().invokeLater(new Runnable() {					
+					public void run() {
+						current_screen.delete(vrm);
+						drawMap();						
+					}
+				});
+				break;
+			}
+		}
+	};
 	private FieldChangeListener listItemListener = new FieldChangeListener() {		
 		public void fieldChanged(Field field, int context) {
-			int in = (field.getIndex()-3) % 4;
+			int in = (field.getIndex()) % 3;
 			AboutDealScreenManager aboutDeals = new AboutDealScreenManager(new Deal(names[in], category[in], description[in], profile_pics[in]));
 			aboutDeals.pushScreen();			
 		}
@@ -49,6 +72,7 @@ public class SearchResultScreen extends MainScreen{
 		
 	public SearchResultScreen(){
 		super(Manager.USE_ALL_HEIGHT | Manager.NO_VERTICAL_SCROLL);
+		current_screen = this;
 		Manager mainManager = getMainManager();
 		mainManager.setBackground(BackgroundFactory.createBitmapBackground(Images.screen_background));
 		
@@ -56,18 +80,27 @@ public class SearchResultScreen extends MainScreen{
 		backButton.setRVAlue(10);
 		homeButton = new TabbedButton("Home", 6, 100, 36);
 		homeButton.setRVAlue(10);
-		
 		setTitle(new ScreenBannar("Deals", 40, backButton, homeButton));
 		
+		vrm = new VerticalFieldManager(Manager.USE_ALL_HEIGHT);
+		
+		add(new SpaceField(5));
+		TabbedButtonManager statusButtonGroup = new TabbedButtonManager(480, 42, true, 2);
+		Field sa = new TabbedButton("List View",6);
+		Field sb = new TabbedButton("Map View",6);
+		sa.setChangeListener(tabbedViewListener);
+		sb.setChangeListener(tabbedViewListener);
+		statusButtonGroup.add(sa);
+		statusButtonGroup.add(sb);
+		add(statusButtonGroup);
+		add(new SpaceField(3));
+		drawList();
+	}
+	
+	public void drawList(){
+		
+		vrm = new VerticalFieldManager(Manager.USE_ALL_HEIGHT);
 		VerticalFieldManager listManager = new VerticalFieldManager(Manager.VERTICAL_SCROLL | Manager.VERTICAL_SCROLLBAR);
-		
-		listManager.add(new SpaceField(5));
-		TabbedButtonManager tbManager = new TabbedButtonManager(Display.getWidth(), 44);
-		tbManager.add(new TabbedButton("List View", 6));
-		tbManager.add(new TabbedButton("Map View", 6));
-		listManager.add(tbManager);
-		listManager.add(new SpaceField(5));
-		
 		for(int i=0; i < profile_pics.length; i++){
 			Field listItem = new ListingField(profile_pics[i], names[i], category[i],8);
 			listItem.setChangeListener(listItemListener);
@@ -78,39 +111,23 @@ public class SearchResultScreen extends MainScreen{
 			listItem.setChangeListener(listItemListener);
 			listManager.add(listItem);
 		}
-		
-		add(listManager);
-		
-		progressBar = new ProgressBar(0);
-		setStatus(progressBar);
-		progressBar.update(5, 12);
+		vrm.add(listManager);
+		add(vrm);
+	}
+	
+	public void drawMap(){
+		vrm = new VerticalFieldManager(Manager.USE_ALL_HEIGHT);
+		VerticalFieldManager listManager = new VerticalFieldManager(Manager.VERTICAL_SCROLL | Manager.VERTICAL_SCROLLBAR | Manager.USE_ALL_WIDTH);
+		MapField mapField = new MapField(Field.FIELD_HCENTER | Field.USE_ALL_WIDTH);
+		mapField.setPreferredSize(460, 200);
+		mapField.moveTo(4500000, 9000000);
+		mapField.setZoom(1);
+		listManager.add(mapField);
+		vrm.add(listManager);
+		add(vrm);
 	}
 	
 	public boolean isDirty() {
 	    return false;
-	}
-}
-
-class ProgressBar extends HorizontalFieldManager{
-	int height = 40;
-	GaugeField guageField;
-	
-	protected ProgressBar(long style){
-		super(style);
-		guageField = new GaugeField("updating.. 25/100", 0, 100, 0, 0);
-		add(guageField);
-	}
-	
-	protected void paint(Graphics g){
-		g.setFont(g.getFont().derive(0, 4));
-		super.paint(g);
-	}
-	
-	protected void update(int _completed, int _tasks){
-		float x = _completed | 0;
-		float y = _tasks | 0;
-		
-		guageField.setValue((int)(x/y * 100));
-		guageField.setLabel("Updating.. " + String.valueOf((int)x) + "/" + String.valueOf((int)y));
 	}
 }

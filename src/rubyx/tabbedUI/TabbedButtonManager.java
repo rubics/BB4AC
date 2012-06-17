@@ -1,6 +1,7 @@
 package rubyx.tabbedUI;
 
 import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.FieldChangeListener;
 import net.rim.device.api.ui.container.HorizontalFieldManager;
 
 public class TabbedButtonManager extends HorizontalFieldManager {
@@ -42,8 +43,9 @@ public class TabbedButtonManager extends HorizontalFieldManager {
 
 		int w = width/fieldcount;
 		for(int i=0; i<fieldcount; i++){
-			setPositionChild(getField(i), i*w, 0);
-			layoutChild(getField(i), w, height);
+			Field field = getField(i);
+			setPositionChild(field, i*w, 0);
+			layoutChild(field, w, height);
 		}
 		setSelection(selectedIndex);
 		setExtent(width, height);

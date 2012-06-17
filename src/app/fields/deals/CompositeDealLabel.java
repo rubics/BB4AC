@@ -1,11 +1,14 @@
 package app.fields.deals;
 
+import rubyx.custom_fields.CustomTextArea;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.ui.Color;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.FieldChangeListener;
+import net.rim.device.api.ui.Font;
 import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
+import net.rim.device.api.ui.Ui;
 import net.rim.device.api.ui.component.ButtonField;
 
 public class CompositeDealLabel extends Manager {
@@ -14,12 +17,14 @@ public class CompositeDealLabel extends Manager {
 	private Field descriptionField;
 	private final int descriptionFieldWidth = 300;
 	private Field buttonField;
+	
+	private static final Font font = Font.getDefault().derive(Font.PLAIN, 6, Ui.UNITS_pt);
 		
 	public CompositeDealLabel(Bitmap _image, String _description, FieldChangeListener _listener){
 		super(Manager.VERTICAL_SCROLL);
 		image = new Bitmap(140,140); 
 		_image.scaleInto(image, Bitmap.FILTER_BILINEAR, Bitmap.SCALE_TO_FIT);
-		descriptionField = new CustomTextArea(_description, descriptionFieldWidth - 10);
+		descriptionField = new CustomTextArea(_description, descriptionFieldWidth - 10, font);
 		add(descriptionField);
 		buttonField = new ButtonField("More Details");
 		buttonField.setChangeListener(_listener);

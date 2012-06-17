@@ -1,32 +1,22 @@
 package app.screens.chat;
 
-import rubyx.custom_fields.ScreenBannar;
-import rubyx.tabbedUI.TabbedButton;
-import net.rim.device.api.system.Bitmap;
-import net.rim.device.api.ui.Field;
-import net.rim.device.api.ui.FieldChangeListener;
+import net.rim.device.api.ui.Color;
+import net.rim.device.api.ui.Graphics;
 import net.rim.device.api.ui.Manager;
-import net.rim.device.api.ui.UiApplication;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.decor.BackgroundFactory;
-import app.fields.listings.ListingField;
+import rubyx.custom_fields.ScreenBannar;
+import rubyx.tabbedUI.TabbedButton;
+import app.fields.chat.ChatMessageField;
 import app.models.Images;
-import app.screens.favorites.ProfileViewScreen;
-import app.screens.profile.GalleryScreen;
 
-public class ChatScreen extends MainScreen{
+public class ChatScreen  extends MainScreen{
 	
 	private TabbedButton backButton;
 	private TabbedButton homeButton;
 	
-	private VerticalFieldManager vrManager;
-	
-	public FieldChangeListener listener = new FieldChangeListener() {
-		public void fieldChanged(Field field, int context) {
-			
-		}
-	};
+	VerticalFieldManager vrm;
 	
 	public ChatScreen(){
 		super(Manager.USE_ALL_HEIGHT | Manager.NO_VERTICAL_SCROLL | Manager.NO_VERTICAL_SCROLLBAR);
@@ -40,14 +30,12 @@ public class ChatScreen extends MainScreen{
 		
 		setTitle(new ScreenBannar("Chat", 40, backButton, homeButton));
 		
-		vrManager = new VerticalFieldManager(Manager.VERTICAL_SCROLL | Manager.VERTICAL_SCROLLBAR);
-		Bitmap[] images = GalleryScreen.images;
-		for (int i=0; i<images.length; i++){
-			Field field = new ListingField(images[i], "Title", "Description", (i%3 == 0) ? ListingField.STATUS_OFFLINE : ListingField.STATUS_ONLINE);
-			field.setChangeListener(listener);
-			vrManager.add(field);
-		}
-		add(vrManager);
+		vrm = new VerticalFieldManager(Manager.VERTICAL_SCROLL | Manager.VERTICAL_SCROLLBAR);
+		vrm.add(new ChatMessageField(Images.avatar_a[0], "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut suscipit pulvinar justo vel ullamcorper.",true));
+		vrm.add(new ChatMessageField(Images.avatar_a[1], Images.profile_pics[2],false));
+		vrm.add(new ChatMessageField(Images.avatar_a[1], "Aenean nulla mi, scelerisque et rutrum vel, molestie eu elit. Nulla a ipsum ligula",false));
+		vrm.add(new ChatMessageField(Images.avatar_a[0], Images.profile_pics[3],true));
+		add(vrm);
 	}
 	
 	public boolean isDirty() {
