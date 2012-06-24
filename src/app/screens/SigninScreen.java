@@ -87,7 +87,7 @@ public class SigninScreen extends MainScreen{
 		register.setChangeListener(new FieldChangeListener() {
 			
 			public void fieldChanged(Field field, int context) {
-				UiApplication.getUiApplication().popScreen(this_screen);
+//				UiApplication.getUiApplication().popScreen(this_screen);
 				UiApplication.getUiApplication().pushScreen(new SignupScreen(0));
 			}
 		});

@@ -13,6 +13,7 @@ import rubyx.custom_fields.ScreenBannar;
 import rubyx.custom_fields.SpaceField;
 import rubyx.layout_managers.TableLayoutManager;
 import rubyx.tabbedUI.TabbedButton;
+import app.AirCrew;
 import app.fields.profile.GridImageField;
 import app.fields.profile.GridViewController;
 import app.managers.profile.ProfileInfoScreenManager;
@@ -50,6 +51,7 @@ public class GalleryScreen extends MainScreen{
 		mainManager.setBackground(BackgroundFactory.createBitmapBackground(Images.screen_background));
 		backButton = new TabbedButton("Back", 6, 100, 36);
 		backButton.setRVAlue(10);
+		backButton.setChangeListener(AirCrew.backButtonListener);
 		homeButton = new TabbedButton("Home", 6, 100, 36);
 		homeButton.setRVAlue(10);
 		

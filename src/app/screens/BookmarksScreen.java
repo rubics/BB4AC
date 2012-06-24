@@ -1,13 +1,18 @@
 package app.screens;
 
 import net.rim.device.api.system.Bitmap;
+import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.FieldChangeListener;
 import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.container.MainScreen;
 import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.decor.BackgroundFactory;
 import rubyx.custom_fields.ScreenBannar;
 import rubyx.tabbedUI.TabbedButton;
+import app.AirCrew;
 import app.fields.listings.ListingField;
+import app.managers.deals.AboutDealScreenManager;
+import app.models.Deal;
 import app.models.Images;
 import app.screens.deals.SearchResultScreen;
 
@@ -16,6 +21,14 @@ public class BookmarksScreen extends MainScreen{
 	private TabbedButton backButton;
 	private TabbedButton homeButton;
 	private VerticalFieldManager vrManager;
+	
+	private FieldChangeListener listItemListener = new FieldChangeListener() {		
+		public void fieldChanged(Field field, int context) {
+			int in = (field.getIndex()) % 3;
+			AboutDealScreenManager aboutDeals = new AboutDealScreenManager(new Deal(SearchResultScreen.names[in], SearchResultScreen.category[in], SearchResultScreen.description[in], SearchResultScreen.profile_pics[in]));
+			aboutDeals.pushScreen();			
+		}
+	};
 
 	public BookmarksScreen(){
 		super(Manager.USE_ALL_HEIGHT | Manager.NO_VERTICAL_SCROLL | Manager.NO_VERTICAL_SCROLLBAR);
@@ -23,6 +36,7 @@ public class BookmarksScreen extends MainScreen{
 		mainManager.setBackground(BackgroundFactory.createBitmapBackground(Images.screen_background));
 		backButton = new TabbedButton("Back", 6, 100, 36);
 		backButton.setRVAlue(10);
+		backButton.setChangeListener(AirCrew.backButtonListener);
 		homeButton = new TabbedButton("Home", 6, 100, 36);
 		homeButton.setRVAlue(10);
 		setTitle(new ScreenBannar("BookMarks", 40, backButton, homeButton));
@@ -32,7 +46,9 @@ public class BookmarksScreen extends MainScreen{
 		String[] names = SearchResultScreen.names;
 		String[] category = SearchResultScreen.category;
 		for (int i=0; i<images.length; i++){
-			vrManager.add( new ListingField(images[i], names[i], category[i], ListingField.STATUS_NONE));
+			Field field = new ListingField(images[i], names[i], category[i], ListingField.STATUS_NONE);
+			field.setChangeListener(listItemListener);
+			vrManager.add(field);
 		}
 		add(vrManager);
 	}

@@ -9,6 +9,7 @@ import net.rim.device.api.ui.container.VerticalFieldManager;
 import net.rim.device.api.ui.decor.BackgroundFactory;
 import rubyx.custom_fields.ScreenBannar;
 import rubyx.tabbedUI.TabbedButton;
+import app.AirCrew;
 import app.fields.favorites.ProfileDetails;
 import app.fields.favorites.ProfileView;
 import app.models.Images;
@@ -29,6 +30,7 @@ public class ProfileViewScreen extends MainScreen{
 		mainManager.setBackground(BackgroundFactory.createBitmapBackground(Images.screen_background));
 		backButton = new TabbedButton("Back", 6, 100, 36);
 		backButton.setRVAlue(10);
+		backButton.setChangeListener(AirCrew.backButtonListener);
 		homeButton = new TabbedButton("Home", 6, 100, 36);
 		homeButton.setRVAlue(10);
 		

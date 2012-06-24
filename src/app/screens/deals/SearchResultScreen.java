@@ -14,6 +14,7 @@ import rubyx.custom_fields.ScreenBannar;
 import rubyx.custom_fields.SpaceField;
 import rubyx.tabbedUI.TabbedButton;
 import rubyx.tabbedUI.TabbedButtonManager;
+import app.AirCrew;
 import app.fields.listings.ListingField;
 import app.managers.deals.AboutDealScreenManager;
 import app.models.Deal;
@@ -31,7 +32,7 @@ public class SearchResultScreen extends MainScreen{
 	public static Bitmap[] profile_pics = Images.profile_pics;
 	public static String[] names = {"Luxe Dental Clinic","Happy Habitat Petcare","Jacques La Coupe","Dine In Resturant"};
 	public static String[] category = {"Dental Care For Your Lifestyle","Petcare","Beauty Salon","Dining"};
-	String[] description = {"Welcome to the Luxe Dental Clinic, the centre of luxury for cosmetic dentistry and Smile design in the	heart of Dubai.",
+	public static String[] description = {"Welcome to the Luxe Dental Clinic, the centre of luxury for cosmetic dentistry and Smile design in the	heart of Dubai.",
 								"We founded Happy Habitat (a professional Pet Sitting Company) out of the desire to provide THE BEST 'at home' pet care solutions to Pet Owners at affordable prices.",
 								"In 1996, Avenue Kleber in Paris France, witnessed the launching of the ultimate luxurious La Coupe Beauty Salon.",
 								"Jump to casual dining, a casual dining resturant is a resturant that serves moderately priced food in a casual atmosphere."};
@@ -78,6 +79,7 @@ public class SearchResultScreen extends MainScreen{
 		
 		backButton = new TabbedButton("Back", 6, 100, 36);
 		backButton.setRVAlue(10);
+		backButton.setChangeListener(AirCrew.backButtonListener);
 		homeButton = new TabbedButton("Home", 6, 100, 36);
 		homeButton.setRVAlue(10);
 		setTitle(new ScreenBannar("Deals", 40, backButton, homeButton));

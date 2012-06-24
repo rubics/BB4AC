@@ -20,7 +20,7 @@ public class CompositeButton extends Field implements CompositeField {
 	private boolean focusable = true;
 	
 	public int color_background = Color.BLACK;
-	public int color_foreground = 0xeeeeee;
+	public int color_foreground = Color.WHITE;
 	public int color_focus = 0x186DEF;
 	public int color_font = Color.BLACK;
 	

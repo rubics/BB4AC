@@ -12,6 +12,7 @@ import rubyx.custom_fields.CompositeTextBox;
 import rubyx.custom_fields.SpaceField;
 import rubyx.tabbedUI.TabbedButton;
 import rubyx.tabbedUI.TabbedButtonManager;
+import app.AirCrew;
 import app.fields.ScreenTitle;
 import app.models.Images;
 
@@ -63,6 +64,7 @@ public class SignupScreen extends MainScreen{
 		Manager tabbedButtonManager = new TabbedButtonManager(470, 40);
 		signUpButton = new TabbedButton("Sign Up", 6);
 		backButton = new TabbedButton("Cancel", 6);
+		backButton.setChangeListener(AirCrew.backButtonListener);
 		tabbedButtonManager.add(signUpButton);
 		tabbedButtonManager.add(backButton);
 		

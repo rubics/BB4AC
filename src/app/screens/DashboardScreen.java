@@ -113,7 +113,15 @@ public class DashboardScreen extends MainScreen{
 		
 		mvrm.add(layoutManager);
 		mvrm.add(new SpaceField(5));
-		mvrm.add(new TabbedButton("Log Out", 7, Display.getWidth()-10, 46));
+		Field logoutButton = new TabbedButton("Log Out", 7, Display.getWidth()-10, 46);
+		logoutButton.setChangeListener(new FieldChangeListener() {
+			
+			public void fieldChanged(Field field, int context) {
+				UiApplication.getUiApplication().popScreen(UiApplication.getUiApplication().getActiveScreen());
+				UiApplication.getUiApplication().pushScreen(new SigninScreen());
+			}
+		});
+		mvrm.add(logoutButton);
 		mvrm.add(new SpaceField(5));
 		add(mvrm);
 	}

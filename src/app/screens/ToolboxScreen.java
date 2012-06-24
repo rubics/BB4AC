@@ -23,6 +23,7 @@ public class ToolboxScreen extends MainScreen{
 		mainManager.setBackground(BackgroundFactory.createBitmapBackground(Images.screen_background));
 		backButton = new TabbedButton("Back", 6, 100, 36);
 		backButton.setRVAlue(10);
+		backButton.setChangeListener(AirCrew.backButtonListener);
 		homeButton = new TabbedButton("Home", 6, 100, 36);
 		homeButton.setRVAlue(10);
 		setTitle(new ScreenBannar("Toolbox", 40, backButton, homeButton));

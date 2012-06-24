@@ -1,9 +1,10 @@
 package app;
 
+import net.rim.device.api.ui.Field;
+import net.rim.device.api.ui.FieldChangeListener;
+import net.rim.device.api.ui.UiApplication;
 import app.screens.SigninScreen;
 import app.screens.SplashScreen;
-import net.rim.device.api.system.Bitmap;
-import net.rim.device.api.ui.UiApplication;
 
 public class AirCrew extends UiApplication {
 	
@@ -28,4 +29,11 @@ public class AirCrew extends UiApplication {
 		AirCrew app = AirCrew.createAirCrewInstance();
 		app.enterEventDispatcher();
 	}
+	
+	public static final FieldChangeListener backButtonListener = new FieldChangeListener() {
+		
+		public void fieldChanged(Field field, int context) {
+			UiApplication.getUiApplication().popScreen(field.getScreen());
+		}
+	};
 }
