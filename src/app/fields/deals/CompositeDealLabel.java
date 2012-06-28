@@ -14,7 +14,7 @@ import net.rim.device.api.ui.component.ButtonField;
 public class CompositeDealLabel extends Manager {
 	private Bitmap image;
 	private final int imageFieldWidth = 160;
-	private Field descriptionField;
+	private CustomTextArea descriptionField;
 	private final int descriptionFieldWidth = 300;
 	private Field buttonField;
 	
@@ -25,6 +25,7 @@ public class CompositeDealLabel extends Manager {
 		image = new Bitmap(140,140); 
 		_image.scaleInto(image, Bitmap.FILTER_BILINEAR, Bitmap.SCALE_TO_FIT);
 		descriptionField = new CustomTextArea(_description, descriptionFieldWidth - 10, font);
+		descriptionField.color = Color.WHITE;
 		add(descriptionField);
 		buttonField = new ButtonField("More Details");
 		buttonField.setChangeListener(_listener);

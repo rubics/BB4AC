@@ -7,7 +7,6 @@ import net.rim.device.api.ui.DrawStyle;
 import net.rim.device.api.ui.Field;
 import net.rim.device.api.ui.Font;
 import net.rim.device.api.ui.Graphics;
-import net.rim.device.api.ui.Ui;
 
 public class CustomTextArea extends Field{
 	
@@ -16,6 +15,7 @@ public class CustomTextArea extends Field{
 	private int height;
 	private Vector lines;
 	Font font;
+	public int color = Color.BLACK;
 	
 	public CustomTextArea(String _string, int _width, Font _font){
 		string = _string;
@@ -31,7 +31,7 @@ public class CustomTextArea extends Field{
 	}
 	
 	protected void paint(Graphics graphics){
-//		graphics.setColor(Color.WHITE);
+		graphics.setColor(color);
 		for (int i = 0; i < lines.size(); i++) {
 			graphics.drawText((String)lines.elementAt(i),0, i*font.getHeight() + 5,DrawStyle.HCENTER |DrawStyle.ELLIPSIS);
 		}
