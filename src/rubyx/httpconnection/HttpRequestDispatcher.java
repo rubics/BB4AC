@@ -33,9 +33,6 @@ public class HttpRequestDispatcher extends Thread{
 	
 	public void run(){
 		
-		//System.out.println("#####  " + "inside HTTPREQUESTDISPATCHER.run();"  + "  ####");
-		
-		
 		try {
 			
 	        String connectionParameters = "";
@@ -110,12 +107,11 @@ public class HttpRequestDispatcher extends Thread{
 		connection.close();
 		
 		requestListener.httpsuccess(baos.toByteArray(), contenttype);	
-	       
+	        
 		}
 		
 		catch(Exception ie){
 			ie.printStackTrace();
-
 		}
 	}
 	

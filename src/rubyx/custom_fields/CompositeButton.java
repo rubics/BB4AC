@@ -10,7 +10,7 @@ import net.rim.device.api.ui.Manager;
 import net.rim.device.api.ui.Ui;
 import net.rim.device.api.ui.component.LabelField;
 import net.rim.device.api.ui.container.HorizontalFieldManager;
-import app.models.Images;
+import app.aircrew.models.Images;
 
 public class CompositeButton extends Field implements CompositeField {
 

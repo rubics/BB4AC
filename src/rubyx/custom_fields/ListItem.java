@@ -1,7 +1,7 @@
 package rubyx.custom_fields;
 
 
-import app.models.Deal;
+import app.aircrew.models.Deal;
 import net.rim.device.api.system.Bitmap;
 import net.rim.device.api.system.Display;
 import net.rim.device.api.ui.Color;
